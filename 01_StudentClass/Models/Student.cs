@@ -12,7 +12,7 @@ namespace _01_StudentClass.Models
         private string middle;
         private string lastName;
         private int permanentAddress;
-        private string socialSecurityNumber;  //Student Social Security Number (SSN)
+        private string socialSecurityNumber;  //Student Social Security Number (SSN. E.g. "000-00-0000" 
         private string facultyNumber;  //Student faculty number
         private string course;
         private string specialty;
