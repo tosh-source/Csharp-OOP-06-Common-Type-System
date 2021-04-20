@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace _01_StudentClass.Models
 {
-    class Student
+    class Student : ICloneable
     {
         private string firstName;
         private string middleName;
         private string lastName;
-        private int permanentAddress;
+        private string permanentAddress;
         private string socialSecurityNumber;  //Student Social Security Number (SSN. E.g. "000-00-0000" 
         private string facultyNumber;  //Student faculty number
         private string course;
@@ -38,7 +38,7 @@ namespace _01_StudentClass.Models
             set { lastName = value; }
         }
 
-        public int PermanentAddress
+        public string PermanentAddress
         {
             get { return permanentAddress; }
             set { permanentAddress = value; }
@@ -86,12 +86,31 @@ namespace _01_StudentClass.Models
             set { university = value; }
         }
 
+        public Student() : this(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty)
+        {
+        }
+
+        public Student(string firstName, string middleName, string lastName, string permanentAddress, string socialSecurityNumber, string facultyNumber, string course, string specialty, string mobilePhone, string email, string university)
+        {
+           this.FirstName = firstName;
+           this.MiddleName = middleName;
+           this.LastName = lastName;
+           this.PermanentAddress = permanentAddress;
+           this.SocialSecurityNumber = socialSecurityNumber;
+           this.FacultyNumber = facultyNumber;
+           this.Course = course;
+           this.Specialty = specialty;
+           this.MobilePhone = mobilePhone;
+           this.Email = email;
+           this.University = university;
+        }
+
         public override string ToString()
         {
             var result = string.Empty;
             var newLine = Environment.NewLine;
 
-            result += this.firstName + " " + this.MiddleName + " " + this.LastName + newLine;
+            result += "Student name: " + this.firstName + " " + this.MiddleName + " " + this.LastName + newLine;
             result += "PermanentAddress: " + this.PermanentAddress + newLine;
             result += "SocialSecurityNumber: " + this.SocialSecurityNumber + newLine;
             result += "FacultyNumber: " + this.FacultyNumber + newLine;
@@ -135,7 +154,7 @@ namespace _01_StudentClass.Models
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(FirstName);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(MiddleName);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(LastName);
-            hashCode = hashCode * -1521134295 + PermanentAddress.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(PermanentAddress);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(SocialSecurityNumber);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(FacultyNumber);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Course);
@@ -144,6 +163,32 @@ namespace _01_StudentClass.Models
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Email);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(University);
             return hashCode;
+        }
+
+        public object Clone()
+        {
+            //Shallow copy with MemberwiseClone(). 
+            //Work only for ValueTypes NOT for reference one!
+            var clonedStudent = this.MemberwiseClone() as Student;
+
+            //Deep copy. 
+            //TRY THIS: Comment the code (in region) below and use GetHashCode() to compare two Student objects.
+            //In our class we have only primitive values (ValueTypes), so for that reason MemberwiseClone() is enough for now. 
+            #region 
+            clonedStudent.FirstName = string.Copy(this.FirstName);
+            clonedStudent.MiddleName = string.Copy(this.MiddleName);
+            clonedStudent.LastName = string.Copy(this.LastName);
+            clonedStudent.PermanentAddress = string.Copy(this.PermanentAddress);
+            clonedStudent.SocialSecurityNumber = string.Copy(this.SocialSecurityNumber);
+            clonedStudent.FacultyNumber = string.Copy(this.FacultyNumber);
+            clonedStudent.Course = string.Copy(this.Course);
+            clonedStudent.Specialty = string.Copy(this.Specialty);
+            clonedStudent.MobilePhone = string.Copy(this.MobilePhone);
+            clonedStudent.Email = string.Copy(this.Email);
+            clonedStudent.University = string.Copy(this.University);
+            #endregion
+
+            return clonedStudent;
         }
 
         public static bool operator ==(Student firstStudent, Student secondStudent)
@@ -158,5 +203,3 @@ namespace _01_StudentClass.Models
 }
 
 //More about override .Equals() and GetHashCode(), see video: "Обща система от типове в .NET (CTS) - 25 март 2015 - Ивайло" in time: |0:57:05 - 1:02:40|
-
-//More about Student Social Security Number (SSN) --> https://www.ssa.gov/pubs/EN-05-10181.pdf
