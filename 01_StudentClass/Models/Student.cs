@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace _01_StudentClass.Models
 {
-    class Student : ICloneable
+    class Student : ICloneable, IComparable<Student>
     {
         private string firstName;
         private string middleName;
         private string lastName;
         private string permanentAddress;
-        private string socialSecurityNumber;  //Student Social Security Number (SSN. E.g. "000-00-0000" 
+        private int socialSecurityNumber;  //Student Social Security Number (SSN. E.g. "000-00-0000" 
         private string facultyNumber;  //Student faculty number
         private string course;
         private string specialty;
@@ -44,7 +44,7 @@ namespace _01_StudentClass.Models
             set { permanentAddress = value; }
         }
 
-        public string SocialSecurityNumber
+        public int SocialSecurityNumber
         {
             get { return socialSecurityNumber; }
             set { socialSecurityNumber = value; }
@@ -86,23 +86,23 @@ namespace _01_StudentClass.Models
             set { university = value; }
         }
 
-        public Student() : this(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty)
+        public Student() : this(string.Empty, string.Empty, string.Empty, string.Empty, 0, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty)
         {
         }
 
-        public Student(string firstName, string middleName, string lastName, string permanentAddress, string socialSecurityNumber, string facultyNumber, string course, string specialty, string mobilePhone, string email, string university)
+        public Student(string firstName, string middleName, string lastName, string permanentAddress, int socialSecurityNumber, string facultyNumber, string course, string specialty, string mobilePhone, string email, string university)
         {
-           this.FirstName = firstName;
-           this.MiddleName = middleName;
-           this.LastName = lastName;
-           this.PermanentAddress = permanentAddress;
-           this.SocialSecurityNumber = socialSecurityNumber;
-           this.FacultyNumber = facultyNumber;
-           this.Course = course;
-           this.Specialty = specialty;
-           this.MobilePhone = mobilePhone;
-           this.Email = email;
-           this.University = university;
+            this.FirstName = firstName;
+            this.MiddleName = middleName;
+            this.LastName = lastName;
+            this.PermanentAddress = permanentAddress;
+            this.SocialSecurityNumber = socialSecurityNumber;
+            this.FacultyNumber = facultyNumber;
+            this.Course = course;
+            this.Specialty = specialty;
+            this.MobilePhone = mobilePhone;
+            this.Email = email;
+            this.University = university;
         }
 
         public override string ToString()
@@ -151,17 +151,19 @@ namespace _01_StudentClass.Models
         public override int GetHashCode()
         {
             var hashCode = 1774673126;
+
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(FirstName);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(MiddleName);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(LastName);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(PermanentAddress);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(SocialSecurityNumber);
+            hashCode = hashCode * -1521134295 + SocialSecurityNumber.GetHashCode();
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(FacultyNumber);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Course);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Specialty);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(MobilePhone);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Email);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(University);
+
             return hashCode;
         }
 
@@ -179,7 +181,7 @@ namespace _01_StudentClass.Models
             clonedStudent.MiddleName = string.Copy(this.MiddleName);
             clonedStudent.LastName = string.Copy(this.LastName);
             clonedStudent.PermanentAddress = string.Copy(this.PermanentAddress);
-            clonedStudent.SocialSecurityNumber = string.Copy(this.SocialSecurityNumber);
+            clonedStudent.SocialSecurityNumber = this.SocialSecurityNumber;
             clonedStudent.FacultyNumber = string.Copy(this.FacultyNumber);
             clonedStudent.Course = string.Copy(this.Course);
             clonedStudent.Specialty = string.Copy(this.Specialty);
@@ -189,6 +191,29 @@ namespace _01_StudentClass.Models
             #endregion
 
             return clonedStudent;
+        }
+
+        public int CompareTo(Student otherStudent)
+        {
+            //First criteria
+            if ((this.FirstName + this.MiddleName + this.LastName)
+                .CompareTo(otherStudent.FirstName + otherStudent.MiddleName + otherStudent.LastName) == 1)  //If 1 -> FIRST object is bigger!
+            {
+                //Second criteria. The result from the second criteria will be final (1, -1, 0).
+                return this.SocialSecurityNumber.CompareTo(otherStudent.SocialSecurityNumber);
+            }
+            else if (this.FirstName.CompareTo(otherStudent.FirstName) == -1)  //if -1 -> SECOND object is bigger!
+            {
+                return this.SocialSecurityNumber.CompareTo(otherStudent.SocialSecurityNumber);
+            }
+            else if (this.FirstName.CompareTo(otherStudent.FirstName) == 0)
+            {
+                return this.SocialSecurityNumber.CompareTo(otherStudent.SocialSecurityNumber);
+            }
+            else
+            {
+                throw new ArgumentException("Provided students cannot be compared!");
+            }
         }
 
         public static bool operator ==(Student firstStudent, Student secondStudent)
