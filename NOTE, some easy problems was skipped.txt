@@ -1,0 +1,4 @@
+This easy problems was skipped:
+
+### Problem 4. Person class
+### Problem 5. 64 Bit array
