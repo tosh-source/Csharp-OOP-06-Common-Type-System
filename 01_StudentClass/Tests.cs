@@ -35,6 +35,21 @@ namespace _01_StudentClass
             //Use implemented GetHashCode() method.
             Console.WriteLine($"{cloneStudents.GetType().Name}.GetHashCode(): " + cloneStudents.GetHashCode());
             Console.WriteLine($"{students.GetType().Name}.GetHashCode(): " + students.GetHashCode());
+
+            //Compare two objects/students
+            for (int current = 0; current < cloneStudents.Length; current++)
+            {
+                Console.WriteLine("Compare students, is equal: " 
+                    + cloneStudents[current].CompareTo(students[current]));
+            }
+
+            cloneStudents[0] = new Student { FirstName = "Alex", LastName = "Smith" };
+
+            for (int current = 0; current < cloneStudents.Length; current++)
+            {
+                Console.WriteLine("Compare students, is equal: "
+                    + cloneStudents[current].CompareTo(students[current]));
+            }
         }
     }
 }
