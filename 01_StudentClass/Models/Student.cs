@@ -195,20 +195,35 @@ namespace _01_StudentClass.Models
 
         public int CompareTo(Student otherStudent)
         {
-            //First criteria
-            if ((this.FirstName + this.MiddleName + this.LastName)
-                .CompareTo(otherStudent.FirstName + otherStudent.MiddleName + otherStudent.LastName) == 1)  //If 1 -> FIRST object is bigger!
+            var firstCriteria = (this.FirstName + this.MiddleName + this.LastName)
+                                .CompareTo(otherStudent.FirstName + otherStudent.MiddleName + otherStudent.LastName);
+            var secondCriteria = this.SocialSecurityNumber.CompareTo(otherStudent.SocialSecurityNumber);
+
+            if (firstCriteria == 1)  //If 1 -> FIRST object is bigger!
             {
-                //Second criteria. The result from the second criteria will be final (1, -1, 0).
-                return this.SocialSecurityNumber.CompareTo(otherStudent.SocialSecurityNumber);
+                if (secondCriteria == 0) //isEqual
+                {
+                    return firstCriteria;
+                }
+                else
+                {
+                    return secondCriteria;
+                }
             }
-            else if (this.FirstName.CompareTo(otherStudent.FirstName) == -1)  //if -1 -> SECOND object is bigger!
+            else if (firstCriteria == -1)  //if -1 -> SECOND object is bigger!
             {
-                return this.SocialSecurityNumber.CompareTo(otherStudent.SocialSecurityNumber);
+                if (secondCriteria == 0) //isEqual
+                {
+                    return firstCriteria;
+                }
+                else
+                {
+                    return secondCriteria;
+                }
             }
-            else if (this.FirstName.CompareTo(otherStudent.FirstName) == 0)
+            else if (firstCriteria == 0)
             {
-                return this.SocialSecurityNumber.CompareTo(otherStudent.SocialSecurityNumber);
+                return secondCriteria;
             }
             else
             {
