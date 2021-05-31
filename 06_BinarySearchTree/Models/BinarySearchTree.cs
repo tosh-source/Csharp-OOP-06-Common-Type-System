@@ -8,7 +8,9 @@ namespace _06_BinarySearchTree.Models
 {
     struct BinarySearchTree
     {
-        public TreeNode AddNewElement(TreeNode root, int value)
+        private static bool isFound = false;
+
+        public TreeNode AddElement(TreeNode root, int value)
         {
             if (root == null)
             {
@@ -19,15 +21,57 @@ namespace _06_BinarySearchTree.Models
             }
             else if (value < root.Node)
             {
-                root.Left = AddNewElement(root.Left, value);
+                root.Left = AddElement(root.Left, value);
             }
             else if (value >= root.Node)
             {
-                root.Right = AddNewElement(root.Right, value);
+                root.Right = AddElement(root.Right, value);
             }
 
             return root;
         }
+
+        public string FindElement(TreeNode tree, long element)
+        {
+            Traverse(tree, element);
+
+            if (isFound == true)
+            {
+                isFound = false;
+                return "Element: " + element.ToString() + " was found!";
+            }
+            else
+            {
+                return "Element: " + element.ToString() + " was NOT found!";
+            }
+        }
+
+        private void Traverse(TreeNode tree, object elementToStopProcess = null)
+        {
+            if (tree == null)
+            {
+                return;
+            }
+            else if (isFound == true)
+            {
+                return;
+            }
+            else if (elementToStopProcess != null && (long)elementToStopProcess == tree.Node)
+            {
+                isFound = true;
+                return;
+            }
+            else
+            {
+                Traverse(tree.Left, elementToStopProcess);
+                Traverse(tree.Right, elementToStopProcess);
+            }
+        }
+
+        //public TreeNode DeleteElement()
+        //{
+        //    //TO DO: Find elements and clone NEW object SKIPPED element
+        //}
     }
 }
 
