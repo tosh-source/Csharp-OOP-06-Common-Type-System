@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using _06_BinarySearchTree.Models;
 
-namespace _06_BinarySearchTree
+namespace BinarySearchTree
 {
     class Tests
     {
