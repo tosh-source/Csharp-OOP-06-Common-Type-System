@@ -23,6 +23,16 @@ namespace BinarySearchTree
             Console.WriteLine(BST.FindElement(tree, 22));
             Console.WriteLine(BST.FindElement(tree, 5));
             Console.WriteLine(BST.FindElement(tree, 999));
+
+            //3.Clone Tree
+            var cloneTree = new TreeNode();
+            cloneTree = tree.Clone() as TreeNode;
+            Console.WriteLine("IsEquals: " + cloneTree.Equals(tree));
+            Console.WriteLine("IsRefEquals: " + object.ReferenceEquals(cloneTree, tree));
+
+            var equalNotClonedTree = tree;
+            Console.WriteLine("IsEquals: " + equalNotClonedTree.Equals(tree));
+            Console.WriteLine("IsRefEquals: " + object.ReferenceEquals(equalNotClonedTree, tree));
         }
     }
 }
