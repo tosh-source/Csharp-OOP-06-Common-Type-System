@@ -37,7 +37,6 @@ namespace BinarySearchTree
             {
                 return false;
             }
-
         }
 
         public override int GetHashCode()
