@@ -9,26 +9,27 @@ namespace BinarySearchTree
     struct BinarySearchTree
     {
         private static bool isFound = false;
+        private static List<long> treeAsArray = new List<long>();
 
-        public TreeNode AddElement(TreeNode root, int value)
+        public TreeNode AddElement(TreeNode tree, long value)
         {
-            if (root == null)
+            if (tree == null)
             {
-                root = new TreeNode
+                tree = new TreeNode
                 {
                     Node = value
                 };
             }
-            else if (value < root.Node)
+            else if (value < tree.Node)
             {
-                root.Left = AddElement(root.Left, value);
+                tree.Left = AddElement(tree.Left, value);
             }
-            else if (value >= root.Node)
+            else if (value >= tree.Node)
             {
-                root.Right = AddElement(root.Right, value);
+                tree.Right = AddElement(tree.Right, value);
             }
 
-            return root;
+            return tree;
         }
 
         public string FindElement(TreeNode tree, long element)
@@ -44,6 +45,34 @@ namespace BinarySearchTree
             {
                 return "Element: " + element.ToString() + " was NOT found!";
             }
+        }
+
+        public TreeNode DeleteElement(TreeNode tree, long element)
+        {
+            //TO DO: Find elements and clone NEW object SKIPPED element
+
+            Traverse(tree, element);
+
+            if (isFound == true)
+            {
+                isFound = false;
+
+                treeAsArray.Clear();
+                TraverseAndReturnElements(tree);
+                treeAsArray.Remove(element);
+            }
+            else
+            {
+                throw new ArgumentException("There is no such kind of element to delete!");
+            }
+
+            TreeNode result = null;
+            for (int i = 0; i < treeAsArray.Count; i++)
+            {
+                result = AddElement(result, treeAsArray[i]);
+            }
+
+            return result;
         }
 
         private void Traverse(TreeNode tree, long elementToStopProcess)
@@ -68,6 +97,20 @@ namespace BinarySearchTree
             }
         }
 
+        private void TraverseAndReturnElements(TreeNode tree)
+        {
+            if (tree == null)
+            {
+                return;
+            }
+            else
+            {
+                treeAsArray.Add(tree.Node);
+            }
+
+            TraverseAndReturnElements(tree.Left);
+            TraverseAndReturnElements(tree.Right);
+        }
     }
 }
 
