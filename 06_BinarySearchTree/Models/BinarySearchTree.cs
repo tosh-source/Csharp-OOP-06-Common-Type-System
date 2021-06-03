@@ -46,7 +46,7 @@ namespace BinarySearchTree
             }
         }
 
-        private void Traverse(TreeNode tree, object elementToStopProcess = null)
+        private void Traverse(TreeNode tree, long elementToStopProcess)
         {
             if (tree == null)
             {
@@ -56,7 +56,7 @@ namespace BinarySearchTree
             {
                 return;
             }
-            else if (elementToStopProcess != null && (long)elementToStopProcess == tree.Node)
+            else if (elementToStopProcess == tree.Node)
             {
                 isFound = true;
                 return;
@@ -68,10 +68,6 @@ namespace BinarySearchTree
             }
         }
 
-        //public TreeNode DeleteElement()
-        //{
-        //    //TO DO: Find elements and clone NEW object SKIPPED element
-        //}
     }
 }
 
