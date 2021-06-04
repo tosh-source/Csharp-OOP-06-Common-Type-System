@@ -67,9 +67,9 @@ namespace BinarySearchTree
             }
 
             TreeNode result = null;
-            for (int i = 0; i < treeAsArray.Count; i++)
+            for (int index = 0; index < treeAsArray.Count; index++)
             {
-                result = AddElement(result, treeAsArray[i]);
+                result = AddElement(result, treeAsArray[index]);
             }
 
             return result;
