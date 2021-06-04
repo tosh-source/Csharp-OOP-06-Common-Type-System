@@ -111,6 +111,14 @@ namespace BinarySearchTree
             TraverseAndReturnElements(tree.Left);
             TraverseAndReturnElements(tree.Right);
         }
+
+        public string ToString(TreeNode tree)
+        {
+            treeAsArray.Clear();
+            TraverseAndReturnElements(tree);
+
+            return string.Join(", ", treeAsArray.ToArray());
+        }
     }
 }
 
