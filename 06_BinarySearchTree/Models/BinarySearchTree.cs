@@ -49,8 +49,6 @@ namespace BinarySearchTree
 
         public TreeNode DeleteElement(TreeNode tree, long element)
         {
-            //TO DO: Find elements and clone NEW object SKIPPED element
-
             Traverse(tree, element);
 
             if (isFound == true)
