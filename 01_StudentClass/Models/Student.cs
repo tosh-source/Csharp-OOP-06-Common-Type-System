@@ -110,7 +110,7 @@ namespace _01_StudentClass.Models
             var result = string.Empty;
             var newLine = Environment.NewLine;
 
-            result += "Student name: " + this.firstName + " " + this.MiddleName + " " + this.LastName + newLine;
+            result += "Student name: " + this.FirstName + " " + this.MiddleName + " " + this.LastName + newLine;
             result += "PermanentAddress: " + this.PermanentAddress + newLine;
             result += "SocialSecurityNumber: " + this.SocialSecurityNumber + newLine;
             result += "FacultyNumber: " + this.FacultyNumber + newLine;
