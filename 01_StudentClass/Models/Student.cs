@@ -193,7 +193,7 @@ namespace _01_StudentClass.Models
             return clonedStudent;
         }
 
-        public int CompareTo(Student otherStudent)
+        public int CompareTo(Student otherStudent) //Condition**
         {
             var firstCriteria = (this.FirstName + this.MiddleName + this.LastName)
                                 .CompareTo(otherStudent.FirstName + otherStudent.MiddleName + otherStudent.LastName);
@@ -243,3 +243,5 @@ namespace _01_StudentClass.Models
 }
 
 //More about override .Equals() and GetHashCode(), see video: "Обща система от типове в .NET (CTS) - 25 март 2015 - Ивайло" in time: |0:57:05 - 1:02:40|
+
+//Condition** --> Compare by names, then by Social Security Number. NOTE: Students may have same names, but Social Security Number should be different. If not, and the Social Security Numbers are equals -> check again by names (return firstCriteria).
